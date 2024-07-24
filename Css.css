@@ -226,3 +226,107 @@ header {
     line-height: 10px;
     padding-left: 20px;
 }
+
+
+
+/* Register Page */
+
+.register{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding-top: 50px;
+}
+
+.register-img{
+    width: 100px;
+    height: 100px;
+    
+}
+
+.register-text{
+    font-size: 30px;
+    font-weight: 500;
+    margin: 30px 0 30px 0;
+}
+
+/* register-input */
+
+.register-form{
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 200px;
+
+}
+
+.register-field{
+    height: 40px;
+    width: 300px;
+    position: relative;
+
+}
+
+.register-input{
+    padding: 8px;
+    font-size: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid rgb(113, 107, 107);
+    border-radius: 6px;
+}
+
+.register-label{
+    position: absolute;
+    color: rgb(176, 167, 167);
+    top: 8px;
+    left: 8px;
+    font-size: 15px;
+    padding: 0 5px;
+    transition: 0.3s;
+    pointer-events: none;
+}
+
+.register-input:focus + .register-label,
+.register-input:valid + .register-label{
+    top: -10px;
+    color: #11998e;
+    background-color: white;
+    
+}
+.register-input:focus{
+    outline: none !important;
+    border-color: #11998e;
+}
+
+/* register-button */
+
+.register-button{
+    margin: 50px 0 20px 0;
+    width: 300px;
+    height: 45px;
+    background-color: #74cf51;
+    border: 0.5px solid black;
+    border-radius: 10px;
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.register-button:hover{
+    background-color: #48C018;
+}
+
+/* Login page */
+
+.login-form{
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100px;
+}
