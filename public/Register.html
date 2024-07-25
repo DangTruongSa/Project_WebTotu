@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Css/Index.css">
+    <title>Dang Ky</title>
+</head>
+<body>
+    <header>
+        <img src="img/logo.png" alt="" class="logo" alt="logo">
+        <nav>
+            <ul class="nav">
+                <li>
+                    <div class="form__group field">
+                        <input type="input" class="form__field" placeholder="Tim kiem" name="find" id='find' required />
+                        <label for="name" class="form__label">Tim kiem</label>
+                    </div>
+                </li>
+                <li><img src="img/search.png" alt="search" width="50px" height="50px"></li>
+                <li><a href="Login.html"><img src="img/humam.png" alt="humam" width="50px" height="50px"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="menu">
+        <nav class="nav">
+            <ul class="menu">
+                <li><a href="">HTML</a></li>
+                <li><a href="">CSS</a></li>
+                <li><a href="">JavaScript</a></li>
+                <li><a href="">C++</a></li>
+                <li><a href="">C#</a></li>
+                <li><a href="">Java</a></li>
+                <li><a href="">...</a></li>
+            </ul>
+        </nav>
+
+    </div>
+<!-- Đăng ký -->
+    <div class="container register">
+        <img src="img/logo.png" alt="" class="register-img" >
+        <p class="register-text">ĐĂNG KÝ</p>
+
+        
+        <form class="register-form" id="register-form">
+            <div class="register-field">
+                <input id="register_name" type="text" name="username" class="register-input" required autocomplete="off" >
+                <label  class="register-label" >Họ và tên</label>
+            </div>
+            <div class="register-field">
+                <input id="register_mail" type="text" name="email" class="register-input" required autocomplete="off" >
+                <label  class="register-label" >Email</label>
+            </div>
+            <div class="register-field">
+                <input id="register_password" type="password" name="password" class="register-input" required autocomplete="off" >
+                <label  class="register-label" >Mật khẩu</label>
+            </div>
+            <div class="register-field">
+                <input id="register_repeatPassword" type="password" class="register-input" required autocomplete="off" >
+                <label  class="register-label" >Nhập lại mât khẩu</label>
+            </div>
+            <div>
+                <input type="submit" class="register-button" value="Đăng ký"><br>
+
+                <input style="margin-top: 0;" type="button" class="register-button" value="Trở về">
+            </div>
+        </form>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const username = document.getElementById('register_name').value;
+            const email = document.getElementById('register_mail').value;
+            const password = document.getElementById('register_password').value;
+            const rePassword = document.getElementById('register_repeatPassword').value;
+
+            if(rePassword == password){
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({username, email, password})
+                });
+            
+                const result = await response.json();
+                document.getElementById('message').innerText = result.messenger;
+            } else{
+                document.getElementById('message').innerText = "xác nhận lại mật khẩu thất bại";
+            }
+
+            
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+### them 
+POST http://localhost:3001/user
+Content-Type: application/json
+
+
+{
+    "fullname":"abc2ghh7",
+    "email":"abgfc@gmail",
+    "password":"123",
+    "phone":"012341234",
+    "address":"HCM"
+}
