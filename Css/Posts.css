@@ -1,0 +1,73 @@
+
+
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Container {
+    max-width: 60%;
+    min-width: 40%;
+    padding : 5%;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(228, 229, 229);
+}
+.Container > h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Content > input[type="text"] {
+    width: 300px;
+    height: 60px;
+    padding: 5px;
+    border-radius: 10px;
+    border-color: #48C018;
+    border-style: solid;
+}
+
+.Content > .textarea {
+    width: 300px;
+    height: 100px;
+    padding: 5px;
+    border-radius: 10px ;
+    border-color: #48C018;
+    border-style: solid;
+}
+
+.Image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Image > input {
+    width: 300px;
+    height: 60px;
+    color: #48C018;
+}
+
+.buttonPost {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonPost > button {
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 40px;
+    background-color: #48C018;
+    margin: 2%;
+    border-radius: 20px ;
+    border-color: #48C018;
+    border-style: solid;
+}

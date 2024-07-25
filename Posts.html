@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Css/Index.css">
+    <link rel="stylesheet" href="Css/Posts.css">
+
+
+</head>
+
+<body>
+    <header>
+        <img src="img/logo.png" alt="" class="logo" alt="logo">
+        <nav>
+            <ul class="nav">
+                <li>
+                    <div class="form__group field">
+                        <input type="input" class="form__field" placeholder="Tim kiem" name="find" id='find' required />
+                        <label for="name" class="form__label">Tim kiem</label>
+                    </div>
+                </li>
+                <li><img src="img/search.png" alt="search" width="50px" height="50px"></li>
+                <li><a href=""><img src="img/humam.png" alt="humam" width="50px" height="50px"></a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="menu">
+        <nav class="nav">
+            <ul class="menu">
+                <li><a href="">HTML</a></li>
+                <li><a href="">CSS</a></li>
+                <li><a href="">JavaScript</a></li>
+                <li><a href="">C++</a></li>
+                <li><a href="">C#</a></li>
+                <li><a href="">Java</a></li>
+                <li><a href="">...</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="Panel">
+        <img src="img/logo.png" alt="" width="220px" height="200px">
+        <div>
+            <h1>HOC</h1>
+            <h2>LAP TRINH</h2>
+        </div>
+    </div>
+
+    <main>
+        <div class="Container">
+            <h1>Thêm bài viết </h1>
+            <div class="Content">
+                <input type="text" id="title" name="title" placeholder="Nhập tiêu đề"> 
+            </div>
+            <div class="Content">
+                <input type="text" id="nameAdmin" name="nameAdmin" placeholder="Nhập tên ad">
+            </div>
+            <div class="Content">
+                <textarea name="content" id="content" class="textarea" placeholder="Nhập nội dung"></textarea>
+            </div>
+            <div class="Image">
+                <input type="file" id="image" name="image">
+            </div>
+            <br>
+            <div class="buttonPost" >
+                <button onclick="addContent()">
+                    thêm nội dung
+                </button><br>
+            </div>
+            <div class="buttonPost" >
+                <button onclick="addImage()">
+                    thêm ảnh
+                </button><br>
+            </div>
+            <script>
+                function addContent() {
+                    var contentDivs = document.querySelectorAll('.Content','.Image');
+                    var lastContentDiv = contentDivs[contentDivs.length - 1];
+
+                    var newDiv = document.createElement('div'); 
+                    newDiv.classList.add('Content'); 
+                    
+                    var newTextarea = document.createElement('textarea');
+                    newTextarea.classList.add('textarea');
+                    newTextarea.setAttribute('id', 'content');
+                    newTextarea.setAttribute('name', 'content');
+                    newTextarea.setAttribute('placeholder', 'Nhập nội dung');
+
+                    newDiv.appendChild(newTextarea); 
+                    lastContentDiv.parentNode.insertBefore(newDiv, lastContentDiv.nextSibling);
+                }
+
+                function addImage() {
+                    var contentDivs = document.querySelectorAll('.Image','.Content');
+                    var lastContentDiv = contentDivs[contentDivs.length - 1];   
+
+                    var newDiv = document.createElement('div'); 
+                    newDiv.classList.add('Image'); 
+                    
+                    var newInput = document.createElement('input'); 
+                    newInput.setAttribute('type', 'file');
+                    newInput.setAttribute('id', 'image');
+                    newInput.setAttribute('name', 'image');
+
+                    newDiv.appendChild(newInput); 
+                    lastContentDiv.parentNode.insertBefore(newDiv, lastContentDiv.nextSibling);
+                  
+                }
+
+            </script>
+
+            <div class="buttonPost" >
+                <button>
+                    Lên Bài
+                </button><br>
+            </div>
+            
+            
+        </div>
+    </main>
+
+
+
+
+</body>
+
+
+</html>
