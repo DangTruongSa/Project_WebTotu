@@ -71,11 +71,23 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({nameOrEmail: login, password})
+                
             });
             
             const result = await response.json();
             document.getElementById('message').innerText = result.messenger;
+            localStorage.setItem('username', username);
         });
+
+
+        window.onload = function() {
+            const iframe = document.getElementById('sourceFrame');
+            iframe.onload = function() {
+                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                const data = iframeDocument.getElementById('sourceData').innerText;
+                document.getElementById('destination').innerText = data;
+            }
+        }
     </script>
     
 </body>

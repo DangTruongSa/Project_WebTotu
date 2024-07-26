@@ -3,6 +3,91 @@ const UserModel = require('../models/users');
 var sendMail = require('../utils/sendmail');
 const router = express.Router();
 const bcryptjs = require('bcryptjs');
+const multer = require('multer');
+const fs = require('fs');
+const path = require('path');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('cloudinary').v2;
+
+// // có thể tạo 1 file js mới để thêm phần natf vào 
+//Cấu hình Cloudinary
+cloudinary.config({
+    cloud_name: 'ddnrkaryl',
+    api_key: '664817628368138',
+    api_secret: 'oHqbm-AMdMs1b2ZviIluMf7hNq8'
+});
+
+// Cấu hình lưu trữ với Cloudinary
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'avatars', // Thư mục trên Cloudinary
+        format: async (req, file) => 'png', // Định dạng file
+        public_id: (req, file) => file.fieldname + '-' + Date.now() // Tên file
+    },
+});
+
+const upload = multer({ storage: storage });
+
+
+router.post('/upload-image', upload.single('avatar'), async (req, res) => {
+    try {
+        const { username } = req.body; 
+        const user = await UserModel.findOne({ username: username }); 
+        const file = req.file; 
+
+        if (!user) {
+            return res.status(400).json({
+                "status": 400,
+                "message": "Người dùng không tồn tại!",
+                "data": []
+            });
+        }
+        // Xóa ảnh cũ
+        if (user.avatar) {
+            
+            const public_id = user.avatar.split('/').slice(7).join('/').split('.')[0];
+            console.log(public_id);
+            await cloudinary.uploader.destroy(public_id);
+        }
+
+        // Cập nhật avatar mới
+        const urlImage = file ? file.path : null;
+        user.avatar = urlImage ? urlImage : user.avatar;
+        const data = await user.save(); // Lưu người dùng vào cơ sở dữ liệu
+
+        if (data) {
+            res.json({
+                "status": 200,
+                "message": "Lưu thành công!(♥_♥)",
+                "data": []
+            });
+        } else {
+            res.status(400).json({
+                "status": 400,
+                "message": "Lưu thất bại!",
+                "data": []
+            });
+        }
+    } catch (error) {
+        console.error('Lỗi khi cập nhật ảnh đại diện:', error);
+        res.status(500).send('Lỗi khi cập nhật ảnh đại diện!');
+    }
+});
+
+
+
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, 'public/images'); // Địa chỉ lưu ảnh
+//     },
+//     filename: (req, file, cb) => {
+        
+//         cb(null, file.fieldname + "-" + Date.now() + file.originalname); // Đặt tên file 
+//     }
+// });
+
+// const upload = multer({ storage: storage });
 
 // danh sach nguoi dung 
 router.get('/get-list-user',async(req,res)=>{
@@ -153,11 +238,64 @@ router.post("/login", async (req, res) => {
     }
 });
 
+//tải ảnh lên 
+// router.post('/upload-image', upload.single('avatar'), async (req, res) => {
+//     try {
+//         var {username} = req.body;
+
+//         const userName = await UserModel.findOne({username : username })
+
+//         const file = req.file;
+//         const urlsImage = file ? `${req.protocol}://${req.get("host")}/images/${file.filename}`: null;
+
+//         if(userName != null){
+
+//             if (username.avatar) {
+//                 const oldImagePath = path.join(__dirname, '..', 'public', 'images', path.basename(userName.avatar));
+//                 fs.unlink(oldImagePath, (err) => {
+//                     if (err) {
+//                         console.error('Lỗi khi xóa ảnh cũ:', err);
+//                     } else {
+//                         console.log('Đã xóa ảnh cũ thành công.');
+//                     }
+//                 });
+//             }
+    
+//             userName.avatar = urlsImage ? urlsImage : userName.avatar;
+//             var data = await userName.save();
+
+//             if(data!=null){
+//                 res.json({
+//                     "status":400,
+//                     "messenger":"Lưu thành công!(♥_♥) ",
+//                     "data":[]
+//                 })
+//             }else{
+//                 res.json({
+//                     "status":400,
+//                     "messenger":"Lưu thất bại!",
+//                     "data":[]
+//                 })
+//             }
+//         }
+//         else{
+//             res.json({
+//                 "status":400,
+//                 "messenger":"Lưu thất bại!",
+//                 "data":[]
+//             })
+//         }
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send('Lỗi khi cập nhật ảnh đại diện!');
+//     }
+// });
+
 // luu diem
 router.post("/save-score", async (req, res) => {
     try {
         var {username,score}= req.body;
-        const scoreUser = await UserModel.findOne({ username :username});
+        const scoreUser = await UserModel.findOne({ username : username});
         
         if(scoreUser!=null){
             scoreUser.score = score ? score : scoreUser.score;
@@ -169,7 +307,7 @@ router.post("/save-score", async (req, res) => {
                     "data":[]
                 })
             }else{
-                es.json({
+                res.json({
                     "status":400,
                     "messenger":"Lưu điểm thất bại!",
                     "data":[]
@@ -354,5 +492,5 @@ router.post("/change-pass", async (req, res) => {
 
 
 
-
+router.use('/images', express.static('images'));
 module.exports = router;
