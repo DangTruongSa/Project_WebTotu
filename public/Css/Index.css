@@ -34,6 +34,17 @@ header {
     padding: 0px 20px;
 }
 
+header nav ul:nth-child(1)>li>img{
+    width: 30px;
+    height: 30px;
+    margin: 0 0 -5px 10px;
+}
+
+header nav ul:last-child>li>a>img{
+    margin-bottom: -10px;
+    width: 50px;
+    height: 50px;
+}
 
 /*<!-- Inputfiel -->*/
 
@@ -42,7 +53,7 @@ header {
     position: relative;
     padding: 15px 0 0;
     margin-top: 10px;
-    width: 145%;
+    width: 130%;
 }
 
 .form__field {
@@ -75,7 +86,10 @@ header {
     transition: 0.2s;
     font-size: 1rem;
     color: #9b9b9b;
+    pointer-events: none;
 }
+
+
 
 .form__field:focus {
     ~.form__label {
@@ -109,18 +123,24 @@ header {
 
 .menu {
     display: flex;
-    justify-content: start;
-    align-items: start;
+    justify-content: space-between;
+    align-items: center;
     padding: 0;
-    background-color: #26d86a;
+    background-color: #5D9E23;
+    height: 60px;
+    padding: 0 15px;
+}
+
+.menu>nav{
+   width: 100%;
 }
 
 .nav ul li a {
     text-align: center;
     text-decoration: none;
     color: aliceblue;
-    font-size: 35px;
-    font-style: bold;
+    font-size: 32px;
+    font-weight: 800;
 
 }
 
@@ -128,8 +148,10 @@ header {
     text-align: center;
     text-decoration: none;
     color: rgb(0, 0, 0);
-    font-size: 35px;
+    font-size: 32px;
+    font-weight: bold;
 }
+
 
 
 /*<!-- Panel -->*/
@@ -164,31 +186,40 @@ header {
 /*<!--  Banner -->*/
 
 
+
 .Banner {
     height: 470px;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 5%;
-    background-color: #6ac248;
+    background-color: #398F17;
     margin-bottom: 2%;
 }
 
 .Content {
-    margin: 5%;
+    height: 400px;
+    width: 450px;
+    margin: -5% 5% 0 5%;
     color: aliceblue;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
 }
 
 .Content h1 {
     font-size: 128px;
-
     text-align: center;
+    font-weight: 600;
 }
 
 .Content p {
-    font-size: 50px;
+    font-size: 28px;
     padding-bottom: 20px;
+    text-align: center;
+    width: 120%;
 }
 
 .Content button {
@@ -197,136 +228,45 @@ header {
     text-align: center;
     font-size: 32px;
     color: aliceblue;
-    border: 1px solid white;
+    border: 2.5px solid white;
     border-radius: 5px;
     background-color: #398F17;
-    margin-left: 30%;
+    margin-left: 10%;
+    font-weight: 500;
 }
 
 .Example {
-    width: 400px;
+    width: 450px;
     height: 400px;
-    border-radius: 10px;
     background-color: rgb(243, 243, 243);
-    font-size: 20px;
+    font-size: 15px;
+    padding: 2px 15px 15px 15px;
 
 }
 
 .Ex-header {
     height: 50px;
-    background: #9b9b9b;
-    padding-left: 20px;
-    border-radius: 10px 10px 0 0;
-    padding-top: 2px;
+    background: rgb(243, 243, 243);
     font-size: 40px;
 }
 
+.Ex-header p{
+    font-size: 25px;
+    padding-top: 10px;
+}
+
 .Ex-content {
+    height: 340px;
     padding-top: 20px;
     line-height: 10px;
     padding-left: 20px;
-}
-
-
-
-/* Register Page */
-
-.register{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    padding-top: 50px;
-}
-
-.register-img{
-    width: 100px;
-    height: 100px;
-    
-}
-
-.register-text{
-    font-size: 30px;
-    font-weight: 500;
-    margin: 30px 0 30px 0;
-}
-
-/* register-input */
-
-.register-form{
-    width: inherit;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 200px;
-
-}
-
-.register-field{
-    height: 40px;
-    width: 300px;
-    position: relative;
-
-}
-
-.register-input{
-    padding: 8px;
-    font-size: 15px;
-    width: 100%;
-    box-sizing: border-box;
-    border: 2px solid rgb(113, 107, 107);
-    border-radius: 6px;
-}
-
-.register-label{
-    position: absolute;
-    color: rgb(176, 167, 167);
-    top: 8px;
-    left: 8px;
-    font-size: 15px;
-    padding: 0 5px;
-    transition: 0.3s;
-    pointer-events: none;
-}
-
-.register-input:focus + .register-label,
-.register-input:valid + .register-label{
-    top: -10px;
-    color: #11998e;
     background-color: white;
+    border-inline-start: 4px solid #04AA6D;
     
 }
-.register-input:focus{
-    outline: none !important;
-    border-color: #11998e;
+
+.color-blue{
+    color: blue;
 }
 
-/* register-button */
 
-.register-button{
-    margin: 50px 0 20px 0;
-    width: 300px;
-    height: 45px;
-    background-color: #74cf51;
-    border: 0.5px solid black;
-    border-radius: 10px;
-    font-size: 20px;
-    color: white;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.register-button:hover{
-    background-color: #48C018;
-}
-
-/* Login page */
-
-.login-form{
-    width: inherit;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100px;
-}

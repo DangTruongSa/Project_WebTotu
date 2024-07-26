@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 mongoose.set('strictQuery',true)
-const URL ="mongodb+srv://baonqps32081:vTZQkTkqw9BpYPPo@cluster0.cuv1nem.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+const URL ="mongodb://localhost:27017"
 
 const connect = async ()=>{
     try {
