@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
 
 
-const database = require('./config/db');
+const database = require('./config/mongoodb'); // revert db to mongoodb
 var app = express();
 
 // view engine setup
@@ -24,18 +24,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use('/', indexRouter);
-app.use('/api',apiRouter);
+app.use('/api', apiRouter);
 
 database.connect();
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
