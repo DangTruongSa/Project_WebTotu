@@ -4,10 +4,9 @@ var sendMail = require('../utils/sendmail');
 const router = express.Router();
 const bcryptjs = require('bcryptjs');
 const multer = require('multer');
-const fs = require('fs');
-const path = require('path');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const cloudinary = require('cloudinary').v2;
+const jwt = require('jsonwebtoken');
 
 // // có thể tạo 1 file js mới để thêm phần natf vào 
 //Cấu hình Cloudinary
@@ -28,7 +27,6 @@ const storage = new CloudinaryStorage({
 });
 
 const upload = multer({ storage: storage });
-
 
 router.post('/upload-image', upload.single('avatar'), async (req, res) => {
     try {
@@ -75,20 +73,6 @@ router.post('/upload-image', upload.single('avatar'), async (req, res) => {
     }
 });
 
-
-
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'public/images'); // Địa chỉ lưu ảnh
-//     },
-//     filename: (req, file, cb) => {
-        
-//         cb(null, file.fieldname + "-" + Date.now() + file.originalname); // Đặt tên file 
-//     }
-// });
-
-// const upload = multer({ storage: storage });
-
 // danh sach nguoi dung 
 router.get('/get-list-user',async(req,res)=>{
     try{
@@ -102,27 +86,14 @@ router.get('/get-list-user',async(req,res)=>{
         console.log(error);
     }
 });
-// lay 1 user
 
-// app.get('/user/:id', async (req, res) => {
-//     const users = await (UserModel.findById(req.params.id, req.body));
-//     try {
-//         res.send(users);
-//     } catch (error) {
-//         res.status(500).send(error);
-//     }
-// });
+// 1 người dùng 
 router.get('/get-user/:username', async (req, res) => {
     const username = req.params.username;
     try {
         const user = await UserModel.findOne({ username: username });
         if (user) {
             res.send(user);
-            // res.status(200).json({
-            //     status: 200,
-            //     messenger: "Thông tin người dùng",
-            //     data: user
-            // });
         } else {
             res.status(404).json({
                 status: 404,
@@ -198,12 +169,12 @@ router.post("/register", async (req, res) => {
             }
         }
         
-       
     } catch(error) {
         console.log(error);
     }
 });
 
+//dang nhap
 //dang nhap
 router.post("/login", async (req, res) => {
     try {
@@ -216,17 +187,23 @@ router.post("/login", async (req, res) => {
                 { email: nameOrEmail }
             ]
         });
-        
+
         // nếu trung thon bao
         if(user != null && await bcryptjs.compareSync(password,user.password)){
             console.log("thanh cong");
+            const token = jwt.sign({ _id: user._id.toString() }, 'your_jwt_secret'); // Thay thế 'your_jwt_secret' bằng secret key của bạn
+            // Lưu token vào user
+            user.tokens = user.tokens.concat({ token });
+            await user.save();
             res.json({
                 "status":111,
                 "messenger":"Chúc mừng đăng nhập thành công (♥_♥)"
                 
             })
         }else{
-            console.log("thatbai");
+        console.log(nameOrEmail,password);
+
+            console.log("that bai");
             res.json({
                 "status":100,
                 "messenger":"Sai tài khoản hoặc mật khẩu!"
@@ -237,59 +214,6 @@ router.post("/login", async (req, res) => {
         
     }
 });
-
-//tải ảnh lên 
-// router.post('/upload-image', upload.single('avatar'), async (req, res) => {
-//     try {
-//         var {username} = req.body;
-
-//         const userName = await UserModel.findOne({username : username })
-
-//         const file = req.file;
-//         const urlsImage = file ? `${req.protocol}://${req.get("host")}/images/${file.filename}`: null;
-
-//         if(userName != null){
-
-//             if (username.avatar) {
-//                 const oldImagePath = path.join(__dirname, '..', 'public', 'images', path.basename(userName.avatar));
-//                 fs.unlink(oldImagePath, (err) => {
-//                     if (err) {
-//                         console.error('Lỗi khi xóa ảnh cũ:', err);
-//                     } else {
-//                         console.log('Đã xóa ảnh cũ thành công.');
-//                     }
-//                 });
-//             }
-    
-//             userName.avatar = urlsImage ? urlsImage : userName.avatar;
-//             var data = await userName.save();
-
-//             if(data!=null){
-//                 res.json({
-//                     "status":400,
-//                     "messenger":"Lưu thành công!(♥_♥) ",
-//                     "data":[]
-//                 })
-//             }else{
-//                 res.json({
-//                     "status":400,
-//                     "messenger":"Lưu thất bại!",
-//                     "data":[]
-//                 })
-//             }
-//         }
-//         else{
-//             res.json({
-//                 "status":400,
-//                 "messenger":"Lưu thất bại!",
-//                 "data":[]
-//             })
-//         }
-//     } catch (error) {
-//         console.error(error);
-//         res.status(500).send('Lỗi khi cập nhật ảnh đại diện!');
-//     }
-// });
 
 // luu diem
 router.post("/save-score", async (req, res) => {
