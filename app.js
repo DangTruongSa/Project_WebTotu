@@ -7,6 +7,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
 var forumRoutes = require('./routes/forum');
+var postsRoutes = require('./routes/ApiPosts');
+
 
 
 
@@ -28,6 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/api',apiRouter);
 app.use('/forum', forumRoutes);
+app.use('/ApiPosts', postsRoutes);
+
 
 database.connect();
 

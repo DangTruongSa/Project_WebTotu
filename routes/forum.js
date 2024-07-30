@@ -23,25 +23,23 @@ router.get('/get-list-forum-thread',async(req,res)=>{
 
 // tạo 1 câu hỏi mới 
 
-router.post("/create-forum-thread/:username", async (req, res) => {
+router.post("/create-forum-thread/:userId", async (req, res) => {
     try {
         var {title,content} = req.body;
-        const username = req.params.username;
+        const userId = req.params.userId;
         
         var newThread ={
-            username,
+            userId,
             title,
             content
         };
-        console.log(" tên "+username);
+        console.log(" tên "+userId);
         var data = await forumThreadModel.create(newThread);
         res.json({
             "status":200,
             "messenger":"Chúc mừng thành công! (♥_♥)",
             "data":data
         })
-        
-        
     } catch(error) {
         console.log(error);
     }
@@ -49,17 +47,17 @@ router.post("/create-forum-thread/:username", async (req, res) => {
 
 // tạo 1 bình luận mới  
 
-router.post("/create-forum-comments/:thread/:username", async (req, res) => {
+router.post("/create-forum-comments/:thread/:userId", async (req, res) => {
     try {
         var {content} = req.body;
-        const username = req.params.username;
+        const userId = req.params.userId;
         const thread = req.params.thread;
         var newComments ={
-            username,
+            userId,
             thread,
             content
         };
-        console.log(" tên "+username);
+        console.log(" tên "+userId);
         var data = await forumCommentModel.create(newComments);
         res.json({
             "status":200,
