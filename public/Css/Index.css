@@ -139,6 +139,7 @@ header {
     justify-content: baseline;
     align-items: center;
     padding: 2%;
+    margin: 1% auto;
 }
 
 .Panel img {
@@ -165,13 +166,15 @@ header {
 
 
 .Banner {
+    max-width: 1440px;
     height: 470px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5%;
     background-color: #6ac248;
-    margin-bottom: 2%;
+    margin: 2% auto;
+    border-radius: 10px;
+    padding-left: 20px;
 }
 
 .Content {
@@ -182,7 +185,6 @@ header {
 
 .Content h1 {
     font-size: 128px;
-
     text-align: center;
 }
 
@@ -201,6 +203,21 @@ header {
     border-radius: 5px;
     background-color: #398F17;
     margin-left: 30%;
+}
+
+.Content button:hover {
+    border: 1px solid rgb(0, 0, 0);
+    background-color: #f0f0f0;
+}
+
+.Content button a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.Content button a:hover {
+    color: #398F17;
+    text-decoration: none;
 }
 
 .Example {
@@ -231,7 +248,7 @@ header {
 
 /* Register Page */
 
-.register{
+.register {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -240,13 +257,13 @@ header {
     padding-top: 50px;
 }
 
-.register-img{
+.register-img {
     width: 100px;
     height: 100px;
-    
+
 }
 
-.register-text{
+.register-text {
     font-size: 30px;
     font-weight: 500;
     margin: 30px 0 30px 0;
@@ -254,7 +271,7 @@ header {
 
 /* register-input */
 
-.register-form{
+.register-form {
     width: inherit;
     display: flex;
     flex-direction: column;
@@ -263,14 +280,14 @@ header {
 
 }
 
-.register-field{
+.register-field {
     height: 40px;
     width: 300px;
     position: relative;
 
 }
 
-.register-input{
+.register-input {
     padding: 8px;
     font-size: 15px;
     width: 100%;
@@ -279,7 +296,7 @@ header {
     border-radius: 6px;
 }
 
-.register-label{
+.register-label {
     position: absolute;
     color: rgb(176, 167, 167);
     top: 8px;
@@ -290,21 +307,22 @@ header {
     pointer-events: none;
 }
 
-.register-input:focus + .register-label,
-.register-input:valid + .register-label{
+.register-input:focus+.register-label,
+.register-input:valid+.register-label {
     top: -10px;
     color: #11998e;
     background-color: white;
-    
+
 }
-.register-input:focus{
+
+.register-input:focus {
     outline: none !important;
     border-color: #11998e;
 }
 
 /* register-button */
 
-.register-button{
+.register-button {
     margin: 50px 0 20px 0;
     width: 300px;
     height: 45px;
@@ -317,13 +335,13 @@ header {
     transition: 0.3s;
 }
 
-.register-button:hover{
+.register-button:hover {
     background-color: #48C018;
 }
 
 /* Login page */
 
-.login-form{
+.login-form {
     width: inherit;
     display: flex;
     flex-direction: column;

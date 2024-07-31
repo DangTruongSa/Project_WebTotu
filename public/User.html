@@ -11,7 +11,7 @@
 
 <body>
     <header>
-        <img src="img/logo.png" alt="" class="logo" alt="logo">
+        <a class="logo" href="Index.html"><img src="img/logo.png" alt="" alt="logo"></a>
         <nav>
             <ul class="nav">
                 <li>
@@ -51,10 +51,10 @@
 
     <div class="user">
         <div style="width: 100px; height: 100px;">
-            <div id="avatar" >
+            <div id="avatar">
             </div>
         </div>
-        
+
         <div id="username">
         </div>
         <div id="role">
@@ -65,43 +65,43 @@
 
     <script>
         const name = localStorage.getItem('username');
-        const apiUrl ='http://localhost:3005/api/get-user/';
+        const apiUrl = 'http://localhost:3005/api/get-user/';
         console.log(name);
         const Avatar = document.getElementById('avatar');
         const UserName = document.getElementById('username');
         const Role = document.getElementById('role');
         const Status = document.getElementById('status');
 
-        fetch(apiUrl+name)
-        .then(response => response.json())
-        .then(user =>{
-            Avatar.innerHTML = `<img src="${user.avatar}" alt="${user.username}'s avatar" />`;
-            UserName.textContent = user.username;
+        fetch(apiUrl + name)
+            .then(response => response.json())
+            .then(user => {
+                Avatar.innerHTML = `<img src="${user.avatar}" alt="${user.username}'s avatar" />`;
+                UserName.textContent = user.username;
 
-            if(user.role === 1){
-                Role.textContent = 'nguoi dung';
-            }
-            else if (user.role === 2) {
-                Role.textContent = 'nguoi viet bai';
+                if (user.role === 1) {
+                    Role.textContent = 'nguoi dung';
+                }
+                else if (user.role === 2) {
+                    Role.textContent = 'nguoi viet bai';
 
-            }
-            else if (user.role === 3) {
-                Role.textContent = 'admin';
+                }
+                else if (user.role === 3) {
+                    Role.textContent = 'admin';
 
-            }
-            Status.textContent = user.status;
+                }
+                Status.textContent = user.status;
 
-        });
+            });
 
-        
-       
-    </script>
+
 
     </script>
 
-    
+    </script>
 
-        
+
+
+
 
 </body>
 
