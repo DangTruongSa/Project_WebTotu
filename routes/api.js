@@ -3,6 +3,75 @@ const UserModel = require('../models/users');
 var sendMail = require('../utils/sendmail');
 const router = express.Router();
 const bcryptjs = require('bcryptjs');
+const multer = require('multer');
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('cloudinary').v2;
+const jwt = require('jsonwebtoken');
+
+// // có thể tạo 1 file js mới để thêm phần natf vào 
+//Cấu hình Cloudinary
+cloudinary.config({
+    cloud_name: 'ddnrkaryl',
+    api_key: '664817628368138',
+    api_secret: 'oHqbm-AMdMs1b2ZviIluMf7hNq8'
+});
+
+// Cấu hình lưu trữ với Cloudinary
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'avatars', // Thư mục trên Cloudinary
+        format: async (req, file) => 'png', // Định dạng file
+        public_id: (req, file) => file.fieldname + '-' + Date.now() // Tên file
+    },
+});
+
+const upload = multer({ storage: storage });
+
+router.post('/upload-image', upload.single('avatar'), async (req, res) => {
+    try {
+        const { username } = req.body; 
+        const user = await UserModel.findOne({ username: username }); 
+        const file = req.file; 
+
+        if (!user) {
+            return res.status(400).json({
+                "status": 400,
+                "message": "Người dùng không tồn tại!",
+                "data": []
+            });
+        }
+        // Xóa ảnh cũ
+        if (user.avatar) {
+            
+            const public_id = user.avatar.split('/').slice(7).join('/').split('.')[0];
+            console.log(public_id);
+            await cloudinary.uploader.destroy(public_id);
+        }
+
+        // Cập nhật avatar mới
+        const urlImage = file ? file.path : null;
+        user.avatar = urlImage ? urlImage : user.avatar;
+        const data = await user.save(); // Lưu người dùng vào cơ sở dữ liệu
+
+        if (data) {
+            res.json({
+                "status": 200,
+                "message": "Lưu thành công!(♥_♥)",
+                "data": []
+            });
+        } else {
+            res.status(400).json({
+                "status": 400,
+                "message": "Lưu thất bại!",
+                "data": []
+            });
+        }
+    } catch (error) {
+        console.error('Lỗi khi cập nhật ảnh đại diện:', error);
+        res.status(500).send('Lỗi khi cập nhật ảnh đại diện!');
+    }
+});
 
 // danh sach nguoi dung 
 router.get('/get-list-user',async(req,res)=>{
@@ -17,27 +86,14 @@ router.get('/get-list-user',async(req,res)=>{
         console.log(error);
     }
 });
-// lay 1 user
 
-// app.get('/user/:id', async (req, res) => {
-//     const users = await (UserModel.findById(req.params.id, req.body));
-//     try {
-//         res.send(users);
-//     } catch (error) {
-//         res.status(500).send(error);
-//     }
-// });
+// 1 người dùng 
 router.get('/get-user/:username', async (req, res) => {
     const username = req.params.username;
     try {
         const user = await UserModel.findOne({ username: username });
         if (user) {
             res.send(user);
-            // res.status(200).json({
-            //     status: 200,
-            //     messenger: "Thông tin người dùng",
-            //     data: user
-            // });
         } else {
             res.status(404).json({
                 status: 404,
@@ -113,12 +169,12 @@ router.post("/register", async (req, res) => {
             }
         }
         
-       
     } catch(error) {
         console.log(error);
     }
 });
 
+//dang nhap
 //dang nhap
 router.post("/login", async (req, res) => {
     try {
@@ -131,17 +187,23 @@ router.post("/login", async (req, res) => {
                 { email: nameOrEmail }
             ]
         });
-        
+
         // nếu trung thon bao
         if(user != null && await bcryptjs.compareSync(password,user.password)){
             console.log("thanh cong");
+            const token = jwt.sign({ _id: user._id.toString() }, 'your_jwt_secret'); // Thay thế 'your_jwt_secret' bằng secret key của bạn
+            // Lưu token vào user
+            user.tokens = user.tokens.concat({ token });
+            await user.save();
             res.json({
                 "status":111,
                 "messenger":"Chúc mừng đăng nhập thành công (♥_♥)"
                 
             })
         }else{
-            console.log("thatbai");
+        console.log(nameOrEmail,password);
+
+            console.log("that bai");
             res.json({
                 "status":100,
                 "messenger":"Sai tài khoản hoặc mật khẩu!"
@@ -157,7 +219,7 @@ router.post("/login", async (req, res) => {
 router.post("/save-score", async (req, res) => {
     try {
         var {username,score}= req.body;
-        const scoreUser = await UserModel.findOne({ username :username});
+        const scoreUser = await UserModel.findOne({ username : username});
         
         if(scoreUser!=null){
             scoreUser.score = score ? score : scoreUser.score;
@@ -169,7 +231,7 @@ router.post("/save-score", async (req, res) => {
                     "data":[]
                 })
             }else{
-                es.json({
+                res.json({
                     "status":400,
                     "messenger":"Lưu điểm thất bại!",
                     "data":[]
@@ -354,5 +416,5 @@ router.post("/change-pass", async (req, res) => {
 
 
 
-
+router.use('/images', express.static('images'));
 module.exports = router;

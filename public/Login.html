@@ -4,13 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Css/Index.css">
-    <link rel="stylesheet" href="Css/Login.css">
-    <link rel="stylesheet" href="Css/Register.css">
     <title>Đăng nhập</title>
 </head>
 <body>
     <header>
-        <a class="logo" href="Index.html"><img src="img/logo.png" alt=""  alt="logo"></a>
+        <img src="img/logo.png" alt="" class="logo" alt="logo">
         <nav>
             <ul class="nav">
                 <li>
@@ -20,7 +18,7 @@
                     </div>
                 </li>
                 <li><img src="img/search.png" alt="search" width="50px" height="50px"></li>
-                <li><a href=""><img src="img/humam.png" alt="humam"></a></li>
+                <li><a href=""><img src="img/humam.png" alt="humam" width="50px" height="50px"></a></li>
             </ul>
         </nav>
     </header>
@@ -53,10 +51,8 @@
                 <label  class="register-label" >Mật khẩu</label>
             </div>
 
-            <div>
-                <input type="submit" class="register-button" value="Đăng nhập">
-            </div>
-            <a href="Register.html"><input type="button" class="register-button" value="Đăng ký"></a> 
+            <div><input type="submit" class="register-button" value="Đăng nhập"></div>
+            <a href="Register.html"><input type="button" class="register-button" value="đăng ký"></a> 
             
         </form>
         <div id="message"></div>
@@ -75,11 +71,23 @@
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({nameOrEmail: login, password})
+                
             });
             
             const result = await response.json();
             document.getElementById('message').innerText = result.messenger;
+            localStorage.setItem('username', login);
         });
+
+
+        window.onload = function() {
+            const iframe = document.getElementById('sourceFrame');
+            iframe.onload = function() {
+                const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                const data = iframeDocument.getElementById('sourceData').innerText;
+                document.getElementById('destination').innerText = data;
+            }
+        }
     </script>
     
 </body>
