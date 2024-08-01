@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Css/Index.css">
     <title>Đăng nhập</title>
 </head>
+
 <body>
     <header>
-        <img src="img/logo.png" alt="" class="logo" alt="logo">
+        <a class="logo" href="Index.html"><img src="img/logo.png" alt="" alt="logo"></a>
         <nav>
             <ul class="nav">
                 <li>
@@ -25,7 +27,7 @@
     <div class="menu">
         <nav class="nav">
             <ul class="menu">
-                <li><a href="">HTML</a></li>
+                <li><a href="html.html">HTML</a></li>
                 <li><a href="">CSS</a></li>
                 <li><a href="">JavaScript</a></li>
                 <li><a href="">C++</a></li>
@@ -36,24 +38,26 @@
         </nav>
 
     </div>
-<!-- Đăng nhập -->
+    <!-- Đăng nhập -->
     <div class="container register">
-        <img src="img/logo.png" alt="" class="register-img" >
+        <img src="img/logo.png" alt="" class="register-img">
         <p class="register-text">ĐĂNG NHẬP</p>
 
         <form class="login-form" id="login-form">
             <div class="register-field">
-                <input id="login_mail" name="nameOrEmail" type="text" class="register-input" required autocomplete="off" >
-                <label  class="register-label" >Email</label>
+                <input id="login_mail" name="nameOrEmail" type="text" class="register-input" required
+                    autocomplete="off">
+                <label class="register-label">Email</label>
             </div>
             <div class="register-field">
-                <input id="login_password" name="password" type="password" class="register-input" required autocomplete="off" >
-                <label  class="register-label" >Mật khẩu</label>
+                <input id="login_password" name="password" type="password" class="register-input" required
+                    autocomplete="off">
+                <label class="register-label">Mật khẩu</label>
             </div>
 
             <div><input type="submit" class="register-button" value="Đăng nhập"></div>
-            <a href="Register.html"><input type="button" class="register-button" value="đăng ký"></a> 
-            
+            <a href="Register.html"><input type="button" class="register-button" value="đăng ký"></a>
+
         </form>
         <div id="message"></div>
     </div>
@@ -70,25 +74,27 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({nameOrEmail: login, password})
-                
+                body: JSON.stringify({ nameOrEmail: login, password })
+
             });
-            
+
             const result = await response.json();
             document.getElementById('message').innerText = result.messenger;
-            localStorage.setItem('username', login);
+            var idUser = result.data;
+            localStorage.setItem('id', idUser);
         });
 
 
-        window.onload = function() {
+        window.onload = function () {
             const iframe = document.getElementById('sourceFrame');
-            iframe.onload = function() {
+            iframe.onload = function () {
                 const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
                 const data = iframeDocument.getElementById('sourceData').innerText;
                 document.getElementById('destination').innerText = data;
             }
         }
     </script>
-    
+
 </body>
+
 </html>

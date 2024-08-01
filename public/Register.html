@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Css/Index.css">
     <title>Dang Ky</title>
 </head>
+
 <body>
     <header>
-        <img src="img/logo.png" alt="" class="logo" alt="logo">
+        <a class="logo" href="Index.html"><img src="img/logo.png" alt="" alt="logo"></a>
         <nav>
             <ul class="nav">
                 <li>
@@ -36,28 +38,30 @@
         </nav>
 
     </div>
-<!-- Đăng ký -->
+    <!-- Đăng ký -->
     <div class="container register">
-        <img src="img/logo.png" alt="" class="register-img" >
+        <img src="img/logo.png" alt="" class="register-img">
         <p class="register-text">ĐĂNG KÝ</p>
 
-        
+
         <form class="register-form" id="register-form">
             <div class="register-field">
-                <input id="register_name" type="text" name="username" class="register-input" required autocomplete="off" >
-                <label  class="register-label" >Họ và tên</label>
+                <input id="register_name" type="text" name="username" class="register-input" required
+                    autocomplete="off">
+                <label class="register-label">Họ và tên</label>
             </div>
             <div class="register-field">
-                <input id="register_mail" type="text" name="email" class="register-input" required autocomplete="off" >
-                <label  class="register-label" >Email</label>
+                <input id="register_mail" type="text" name="email" class="register-input" required autocomplete="off">
+                <label class="register-label">Email</label>
             </div>
             <div class="register-field">
-                <input id="register_password" type="password" name="password" class="register-input" required autocomplete="off" >
-                <label  class="register-label" >Mật khẩu</label>
+                <input id="register_password" type="password" name="password" class="register-input" required
+                    autocomplete="off">
+                <label class="register-label">Mật khẩu</label>
             </div>
             <div class="register-field">
-                <input id="register_repeatPassword" type="password" class="register-input" required autocomplete="off" >
-                <label  class="register-label" >Nhập lại mât khẩu</label>
+                <input id="register_repeatPassword" type="password" class="register-input" required autocomplete="off">
+                <label class="register-label">Nhập lại mât khẩu</label>
             </div>
             <div>
                 <input type="submit" class="register-button" value="Đăng ký"><br>
@@ -77,23 +81,24 @@
             const password = document.getElementById('register_password').value;
             const rePassword = document.getElementById('register_repeatPassword').value;
 
-            if(rePassword == password){
+            if (rePassword == password) {
                 const response = await fetch('/api/register', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({username, email, password})
+                    body: JSON.stringify({ username, email, password })
                 });
-            
+
                 const result = await response.json();
                 document.getElementById('message').innerText = result.messenger;
-            } else{
+            } else {
                 document.getElementById('message').innerText = "xác nhận lại mật khẩu thất bại";
             }
 
-            
+
         });
     </script>
 </body>
+
 </html>

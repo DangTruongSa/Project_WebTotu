@@ -11,7 +11,7 @@
 
 <body>
     <header>
-        <img src="img/logo.png" alt="" class="logo" alt="logo">
+        <a class="logo" href="Index.html"><img src="img/logo.png" alt="" alt="logo"></a>
         <nav>
             <ul class="nav">
                 <li>
@@ -20,54 +20,82 @@
                         <label for="name" class="form__label">Tim kiem</label>
                     </div>
                 </li>
-                <li><img src="img/search.png" alt="search" width="50px" height="50px"></li>
+                <li><img class="search-icon" src="img/search.png" alt="search" width="50px" height="50px"></li>
                 <li><a href="Login.html"><img src="img/humam.png" alt="humam" width="50px" height="50px"></a></li>
             </ul>
         </nav>
     </header>
+    <!-- thu vien -->
     <div class="menu">
         <nav class="nav">
-            <ul class="menu">
-                <li><a href="">HTML</a></li>
-                <li><a href="">CSS</a></li>
-                <li><a href="">JavaScript</a></li>
-                <li><a href="">C++</a></li>
-                <li><a href="">C#</a></li>
-                <li><a href="">Java</a></li>
-                <li><a href="">...</a></li>
+            <ul class="menu" id="categoryMenu">
+                
             </ul>
         </nav>
     </div>
 
+<script>
+    const apiUrl ='http://localhost:3005/ApiPosts/list-category';
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 200) {
+                const categories = data.data;
+                const menuElement = document.getElementById('categoryMenu');
+                if (menuElement) {
+                    categories.forEach(category => {
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        a.href = `#`; 
+                        a.textContent = category.name;
+                        li.appendChild(a);
+                        menuElement.appendChild(li);
+                    });
+                }
+            } else {
+                console.error('Lỗi khi lấy danh sách:', data.messenger);
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi kết nối API:', error);
+        });
+</script>
+
     <div class="Panel">
         <img src="img/logo.png" alt="" width="220px" height="200px">
         <div>
-            <h1>HOC</h1>
-            <h2>LAP TRINH</h2>
+            <h1>HỌC</h1>
+            <h2>LẬP TRÌNH</h2>
         </div>
     </div>
 
     <div class="Banner">
         <div class="Content">
             <h1>HTML</h1>
-            <p>Ngon ngu xay dung trang web</p>
-            <button>Hoc HTML</button>
+            <p>Ngôn ngữ để xây dựng trang web</p>
+            <button><a href="html.html">Học HTML</a></button>
         </div>
         <div class="Example">
             <div class="Ex-header">
-                <p>Vi du HTML :</p>
+                <p>Ví dụ HTML :</p>
             </div>
             <div class="Ex-content">
-                <p>&lt;!DOCTYPE html&gt;</p><br><br>
-                <p>&lt;html&gt;</p><br><br>
-                <p> &lt;head&gt;</p><br>
-                <p> &lt;title&gt;Page Title&lt;/title&gt;</p><br>
-                <p> &lt;/head&gt;</p><br><br>
-                <p> &lt;body&gt;</p><br><br>
-                <p>&lt;h1&gt;This is a Heading&lt;/h1&gt;</p><br>
-                <p>&lt;p&gt;This is a paragraph.&lt;/p&gt;</p><br><br>
-                <p>&lt;/body&gt;</p><br><br>
-                <p>&lt;/html&gt;</p>
+                <p class="color-blue">&lt;<font color="brown">!DOCTYPE</font>
+                    <font style="padding-left: 10px;" color="red">html</font> &gt;
+                </p><br><br>
+                <p class="color-blue">&lt;<font color="brown">html</font>&gt;</p><br><br>
+                <p class="color-blue"> &lt;<font color="brown">head</font>&gt;</p><br><br>
+                <p class="color-blue"> &lt;<font color="brown">title</font>&gt;<font color="black">Page Title</font>&lt;
+                    <font color="brown">/title</font>&gt;
+                </p><br><br>
+                <p class="color-blue"> &lt;<font color="brown">/headfontp</font>&gt;</p><br><br><br>
+                <p class="color-blue"> &lt;<font color="brown">body</font>&gt;</p><br><br>
+                <p class="color-blue">&lt;<font color="brown">h1</font>&gt;<font color="black">This is a Heading</font>
+                    &lt;<font color="brown">/h1</font>&gt;</p><br>
+                <p class="color-blue" style="margin-top: 8px;">&lt;<font color="brown">p</font>&gt;<font color="black">
+                        This is a paragraph.</font>&lt;<font color="brown">/p</font>&gt;</p><br><br><br>
+                <p class="color-blue">&lt;<font color="brown">/body</font>&gt;</p><br><br>
+                <p class="color-blue">&lt;<font color="brown">/html</font>&gt;</p>
             </div>
         </div>
     </div>
@@ -76,23 +104,24 @@
 
         <div class="Example">
             <div class="Ex-header">
-                <p>Vi du CSS :</p>
+                <p>Ví dụ CSS :</p>
             </div>
             <div class="Ex-content">
-                <p><code>
-                    body {</code></p><br><br>
-                <p><code> background-color: lightblue;</code></p><br><br>
+                <p class="color-brown">body<code>
+                     {</code></p><br><br>
+                <p><code><font color="red" >background-color</font>: <font color="blue" >lightblue</font> ;</code></p>
+                <br><br>
                 <p><code> } </code></p><br><br>
                 <p><code>
-                h1 {</code></p><br><br>
-                <p><code> color: white;</code></p><br>
-                <p><code> text-align: center;</code></p><br><br>
+                <font color="brown" >h1</font> {</code></p><br><br>
+                <p><code> <font color="red" >color</font>: <font color="blue" >white</font>;</code></p><br>
+                <p><code> <font color="red" >text-align</font>: <font color="blue" >center</font>;</code></p><br><br>
                 <p><code> }
             </code></p><br><br>
                 <p><code>
-                p {</code></p><br><br>
-                <p><code>font-family: verdana;</code></p><br>
-                <p><code>font-size: 20px;</code></p><br><br>
+                    <font color="brown" >p</font> {</code></p><br><br>
+                <p><code><font color="red" >font-family</font>: <font color="blue" >verdana</font>;</code></p><br>
+                <p><code><font color="red" >font-size</font>: <font color="blue" >20px</font>;</code></p><br><br>
                 <p><code> }
                 </code></p>
             </div>
@@ -100,11 +129,72 @@
 
         <div class="Content">
             <h1>CSS</h1>
-            <p>Ngon ngu de tao kieu cho trang web</p>
-            <button>Hoc CSS</button>
+            <p style="padding: 0 80px;">Ngôn ngữ để tạo kiểu cho các trang web</p>
+            <button><a href="">Học CSS</a></button>
         </div>
     </div>
 
+
+    <div class="Banner">
+        <div class="Content">
+            <h1 style="font-size: 64px;">JAVASCRIPT</h1>
+            <p>Ngôn ngữ lập trình trang web</p>
+            <button><a href="">Học Javascript</a></button>
+        </div>
+        <div class="Example">
+            <div class="Ex-header">
+                <p>Ví dụ Javascript :</p>
+            </div>
+            <div class="Ex-content" style="line-height: 25px;">
+                <p class="color-blue">&lt;<font color="brown">button</font> onclick=&quot;myFunction()&quot;><font
+                        color="black">Click Me!</font> &lt;<font color="brown">/button</font>&gt;</p><br>
+                <p class="color-blue">&lt;<font color="brown">script</font>&gt;</p>
+                <p>
+                    <font color="blue">function</font> myFunction() {
+                </p>
+                <div style="padding-inline-start: 20px;">
+                    <p>
+                        <font color="blue">let</font> x = document.getElementById(<font color="red">"demo"</font>);
+                    </p>
+                    <p>x.style.fontSize = <font color="red">"25px"</font>;</p>
+                    <p>x.style.color = <font color="red">"red"</font>;</p>
+                </div>
+                <p>}</p>
+                <p class="color-blue">&lt;<font color="brown">/script</font>&gt;</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="Banner">
+
+        <div class="Example">
+            <div class="Ex-header">
+                <p>Ví dụ CSS :</p>
+            </div>
+            <div class="Ex-content">
+                <p>
+                    <font color="#07a">public class</font>
+                    <font color="#DD4A68"> Main</font> {
+                </p><br><br>
+                <p style="padding-inline-start: 15px;">
+                    <font color="#07a">public static void</font>
+                    <font color="#DD4A68"> main</font>(<font color="#DD4A68">String</font>[] args) {
+                </p><br><br>
+                <p style="padding-inline-start: 25px;">
+                    <font color="#07a">System</font>.out.<font color="#07a">println</font>(<font color="#690">"Hello
+                        World"</font>);
+                </p><br><br>
+                <p style="padding-inline-start: 15px;">}</p><br><br>
+                <p>}</p>
+            </div>
+        </div>
+
+        <div class="Content">
+            <h1>JAVA</h1>
+            <p style="padding: 0 20px;text-align: center;">Một ngôn ngữ lập trình phổ biến.</p>
+            <button><a href="">Học JAVA</a></button>
+        </div>
+    </div>
 
 
 
