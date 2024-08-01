@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        <img src="img/logo.png" alt="" class="logo" alt="logo">
+        <a class="logo" href="Index.html"><img src="img/logo.png" alt="" alt="logo"></a>
         <nav>
             <ul class="nav">
                 <li>
@@ -30,7 +30,7 @@
     <div class="menu">
         <nav class="nav">
             <ul class="menu">
-                <li><a href="">HTML</a></li>
+                <li><a href="html.html">HTML</a></li>
                 <li><a href="">CSS</a></li>
                 <li><a href="">JavaScript</a></li>
                 <li><a href="">C++</a></li>
@@ -53,7 +53,7 @@
         <div class="Container">
             <h1>Thêm bài viết </h1>
             <div class="Content">
-                <input type="text" id="title" name="title" placeholder="Nhập tiêu đề"> 
+                <input type="text" id="title" name="title" placeholder="Nhập tiêu đề">
             </div>
             <div class="Content">
                 <input type="text" id="nameAdmin" name="nameAdmin" placeholder="Nhập tên ad">
@@ -65,60 +65,60 @@
                 <input type="file" id="image" name="image">
             </div>
             <br>
-            <div class="buttonPost" >
+            <div class="buttonPost">
                 <button onclick="addContent()">
                     thêm nội dung
                 </button><br>
             </div>
-            <div class="buttonPost" >
+            <div class="buttonPost">
                 <button onclick="addImage()">
                     thêm ảnh
                 </button><br>
             </div>
             <script>
                 function addContent() {
-                    var contentDivs = document.querySelectorAll('.Content','.Image');
+                    var contentDivs = document.querySelectorAll('.Content', '.Image');
                     var lastContentDiv = contentDivs[contentDivs.length - 1];
 
-                    var newDiv = document.createElement('div'); 
-                    newDiv.classList.add('Content'); 
-                    
+                    var newDiv = document.createElement('div');
+                    newDiv.classList.add('Content');
+
                     var newTextarea = document.createElement('textarea');
                     newTextarea.classList.add('textarea');
                     newTextarea.setAttribute('id', 'content');
                     newTextarea.setAttribute('name', 'content');
                     newTextarea.setAttribute('placeholder', 'Nhập nội dung');
 
-                    newDiv.appendChild(newTextarea); 
+                    newDiv.appendChild(newTextarea);
                     lastContentDiv.parentNode.insertBefore(newDiv, lastContentDiv.nextSibling);
                 }
 
                 function addImage() {
-                    var contentDivs = document.querySelectorAll('.Image','.Content');
-                    var lastContentDiv = contentDivs[contentDivs.length - 1];   
+                    var contentDivs = document.querySelectorAll('.Image', '.Content');
+                    var lastContentDiv = contentDivs[contentDivs.length - 1];
 
-                    var newDiv = document.createElement('div'); 
-                    newDiv.classList.add('Image'); 
-                    
-                    var newInput = document.createElement('input'); 
+                    var newDiv = document.createElement('div');
+                    newDiv.classList.add('Image');
+
+                    var newInput = document.createElement('input');
                     newInput.setAttribute('type', 'file');
                     newInput.setAttribute('id', 'image');
                     newInput.setAttribute('name', 'image');
 
-                    newDiv.appendChild(newInput); 
+                    newDiv.appendChild(newInput);
                     lastContentDiv.parentNode.insertBefore(newDiv, lastContentDiv.nextSibling);
-                  
+
                 }
 
             </script>
 
-            <div class="buttonPost" >
+            <div class="buttonPost">
                 <button>
                     Lên Bài
                 </button><br>
             </div>
-            
-            
+
+
         </div>
     </main>
 
