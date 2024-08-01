@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 const postContentSchema = new Schema({
-    postId:{typle:ObjectId,ref:'posts'},
+    postId:{type: ObjectId, ref:'posts'},
     title:{type:String },
     content:{type: String },
     image:{type: String, default: "111"}
@@ -11,4 +11,4 @@ const postContentSchema = new Schema({
 });
 
 
-module.exports = mongoose.model('posts', postContentSchema)
+module.exports = mongoose.model('postContent', postContentSchema)

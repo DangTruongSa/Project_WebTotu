@@ -80,7 +80,8 @@
 
             const result = await response.json();
             document.getElementById('message').innerText = result.messenger;
-            localStorage.setItem('username', login);
+            var idUser = result.data;
+            localStorage.setItem('id', idUser);
         });
 
 

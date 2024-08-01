@@ -5,7 +5,7 @@ const ObjectId = Schema.ObjectId;
 const postsSchema = new Schema({
     categoryId: {type: Array},
     postId:{type:ObjectId},
-    userId:{type: ObjectId,ref:'users'},
+    userId:{type: ObjectId, ref:'users'},
     title:{type:String}
 });
 
