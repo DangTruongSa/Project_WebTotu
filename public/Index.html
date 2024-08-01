@@ -25,20 +25,41 @@
             </ul>
         </nav>
     </header>
+    <!-- thu vien -->
     <div class="menu">
         <nav class="nav">
-            <ul class="menu">
-                <li><a href="html.html">HTML</a></li>
-                <li><a href="">CSS</a></li>
-                <li><a href="">JAVASCRIPT</a></li>
-                <li><a href="">C++</a></li>
-                <li><a href="">C#</a></li>
-                <li><a href="">JAVA</a></li>
-                <li><a href="">...</a></li>
+            <ul class="menu" id="categoryMenu">
+                
             </ul>
         </nav>
-
     </div>
+
+<script>
+    const apiUrl ='http://localhost:3005/ApiPosts/list-category';
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 200) {
+                const categories = data.data;
+                const menuElement = document.getElementById('categoryMenu');
+                if (menuElement) {
+                    categories.forEach(category => {
+                        const li = document.createElement('li');
+                        const a = document.createElement('a');
+                        a.href = `#`; 
+                        a.textContent = category.name;
+                        li.appendChild(a);
+                        menuElement.appendChild(li);
+                    });
+                }
+            } else {
+                console.error('Lỗi khi lấy danh sách:', data.messenger);
+            }
+        })
+        .catch(error => {
+            console.error('Lỗi kết nối API:', error);
+        });
+</script>
 
     <div class="Panel">
         <img src="img/logo.png" alt="" width="220px" height="200px">

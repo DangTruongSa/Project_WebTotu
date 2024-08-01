@@ -6,14 +6,13 @@ const CategotyModel = require('../models/category');
 
 // them thu vien
 // chi danh admin
-router.post("/create-categoty", async (req, res) => {
+router.post("/create-category", async (req, res) => {
     try {
-        var {name,description,status} = req.body;
-        
+        var {name,description} = req.body;
+        console.log("looi")
         var newCategory ={
             name,
-            description,
-            status
+            description
         };
         
         var data = await CategotyModel.create(newCategory);
@@ -29,9 +28,9 @@ router.post("/create-categoty", async (req, res) => {
 
 // xem thu vien
 
-router.post("/list-category", async (req, res)=>{
+router.get("/list-category", async (req, res)=>{
     try {
-        const data = CategotyModel.find();
+        const data = await CategotyModel.find();
         res.json({
             "status":200,
             "messenger":"Chúc mừng thành công!",
