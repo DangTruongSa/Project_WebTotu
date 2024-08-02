@@ -56,6 +56,10 @@
                 <input type="text" id="title" name="title" placeholder="Nhập tiêu đề">
             </div>
             <div class="Content">
+                <select id="Category">
+                </select>
+            </div>
+            <div class="Content">
                 <input type="text" id="nameAdmin" name="nameAdmin" placeholder="Nhập tên ad">
             </div>
             <div class="Content">
@@ -109,6 +113,28 @@
                     lastContentDiv.parentNode.insertBefore(newDiv, lastContentDiv.nextSibling);
 
                 }
+                const apiUrl = 'http://localhost:3005/ApiPosts/list-category';
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 200) {
+                            const categories = data.data;
+                            const menuElement = document.getElementById('Category');
+                            if (menuElement) {
+                                categories.forEach(category => {
+                                    const option = document.createElement('option');
+                                    option.textContent = category.name;
+                                    option.value = category.name;
+                                    menuElement.appendChild(option);
+                                });
+                            }
+                        } else {
+                            console.error('Lỗi khi lấy danh sách:', data.messenger);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Lỗi kết nối API:', error);
+                    });
 
             </script>
 
