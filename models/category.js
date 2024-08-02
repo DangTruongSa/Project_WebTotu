@@ -9,5 +9,4 @@ const categorySchema = new Schema({
     status:{type:Number,default:1} // 1 là trạng thái bình thường, 0 là trạng thái bị xóa
 });
 
-
 module.exports = mongoose.model('category', categorySchema)
