@@ -191,9 +191,9 @@ router.post("/login", async (req, res) => {
         // nếu trung thon bao
         if(user != null && await bcryptjs.compareSync(password,user.password)){
             console.log("thanh cong");
-            const token = jwt.sign({ _id: user._id.toString() }, 'your_jwt_secret'); // Thay thế 'your_jwt_secret' bằng secret key của bạn
-            // Lưu token vào user
-            user.tokens = user.tokens.concat({ token });
+            // const token = jwt.sign({ _id: user._id.toString() }, 'your_jwt_secret'); // Thay thế 'your_jwt_secret' bằng secret key của bạn
+            // // Lưu token vào user
+            // user.tokens = user.tokens.concat({ token });
             await user.save();
             res.json({
                 "status":111,

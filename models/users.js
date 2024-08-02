@@ -13,9 +13,6 @@ const User = new Schema({
     role: { type: Number, default: 1 },// 1 = user / 2 admin viết bài / 3 ad quản lý toàn bộ
     status: { type: Number, default: 1 },// 1 trạng thái bình thường // 0 trạng thái bị khóa 
     avatar: { type: String, default: "dfd" },
-    tokens: [{
-        token: { type: String, required: true }
-    }]
 });
 
 
