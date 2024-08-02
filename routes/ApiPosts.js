@@ -9,7 +9,6 @@ const CategotyModel = require('../models/category');
 router.post("/create-category", async (req, res) => {
     try {
         var {name,description} = req.body;
-        console.log("looi")
         var newCategory ={
             name,
             description
@@ -18,7 +17,7 @@ router.post("/create-category", async (req, res) => {
         var data = await CategotyModel.create(newCategory);
         res.json({
             "status":200,
-            "messenger":"Chúc mừng thành công! (♥_♥)",
+            "messenger":"Chúc mừng theem loai  thành công! (♥_♥)",
             "data":data
         })
     } catch(error) {
@@ -87,6 +86,8 @@ router.post("/create-post/:postId", async (req, res) => {
         console.log(error);
     }
 });
+
+// xem thư bài đăng 
 
 
 module.exports = router;
