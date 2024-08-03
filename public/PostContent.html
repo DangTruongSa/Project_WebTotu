@@ -50,17 +50,23 @@
     </div>
 
     <main>
-        <form class="Container" id="from-Post">
-            <h1>Thêm bài viết </h1>
+        
+            
+            <form class="Container" id="from-Post">
+                <h1>Thêm nội dung cho bài viết  </h1>
+                <div class="Content">
+                    <select id="Posts">
+                    </select>
+                </div>
+
             <div class="Content">
-                <input type="text" id="title" name="title" placeholder="Nhập tiêu đề">
+                <input type="text" id="titleI" name="titleI" placeholder="Nhập tiêu đề">
             </div>
             <div class="Content">
-                <select id="Category">
-                </select>
+                <textarea type="text" id="contentT" name="contentT" placeholder="Nhập nội dung"></textarea>
             </div>
+            
             <br>
-            <div id="username">Ten cua nguoi dang </div>
             
             <div class="buttonPost">
                 <input type="submit"  value="Posst"><br>
@@ -70,20 +76,20 @@
         </form>
         <script>
             
-            const apiUrl = 'http://localhost:3005/ApiPosts/list-category';
+            const apiUrl = 'http://localhost:3005/ApiPosts/get-list-posts';
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 200) {
-                        const categories = data.data;
-                        const menuElement = document.getElementById('Category');
-                        if (menuElement) {
-                            categories.forEach(category => {
+                        const Subtitle = data.data;
+                        const PostElement = document.getElementById('Posts');
+                        if (PostElement) {
+                            Subtitle.forEach(subtitle => {
                                 const option = document.createElement('option');
                                 option.id = "optionCategory";
-                                option.textContent = category.name;
-                                option.value = category._id;
-                                menuElement.appendChild(option);
+                                option.textContent = subtitle.title;
+                                option.value = subtitle._id;
+                                PostElement.appendChild(option);
                             });
                         }
                     } else {
@@ -94,16 +100,6 @@
                     console.error('Lỗi kết nối API:', error);
                 });
 
-            const userId = localStorage.getItem('id');
-            const UserName = document.getElementById('username');
-            // hien ten user
-            const apiUrlUser = 'http://localhost:3005/api/get-user/';
-            fetch(apiUrlUser + userId )
-                .then(response => response.json())
-                .then(user => {
-                    
-                    UserName.textContent = user.username;
-                });
 
             // posst baif
 
@@ -111,18 +107,20 @@
             document.getElementById('from-Post').addEventListener('submit', async (event) => {
                 event.preventDefault();
 
-                const selectElement = document.getElementById('Category');
+                const selectElement = document.getElementById('Posts');
                 const selectedOption = selectElement.options[selectElement.selectedIndex];
-                const categoryId = selectedOption.getAttribute('value');
-                const title = document.getElementById('title').value;
+                const PostId = selectedOption.getAttribute('value');
+                const title = document.getElementById('titleI').value;
+                const content = document.getElementById('contentT').value;
+
 
                 console.log(title);
-                const response = await fetch('/ApiPosts/create-post/' + userId, {
+                const response = await fetch('/ApiPosts/create-post-content/' + PostId, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({categoryId, title})
+                    body: JSON.stringify({title,content})
                 });
 
                 const result = await response.json();

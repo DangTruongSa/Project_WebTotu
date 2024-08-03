@@ -88,10 +88,10 @@ router.get('/get-list-user',async(req,res)=>{
 });
 
 // 1 người dùng 
-router.get('/get-user/:username', async (req, res) => {
-    const username = req.params.username;
+router.get('/get-user/:_id', async (req, res) => {
+    const _id= req.params._id;
     try {
-        const user = await UserModel.findOne({ username: username });
+        const user = await UserModel.findOne({ _id: _id});
         if (user) {
             res.send(user);
         } else {
@@ -198,7 +198,7 @@ router.post("/login", async (req, res) => {
             res.json({
                 "status":111,
                 "messenger":"Chúc mừng đăng nhập thành công (♥_♥)",
-                "data":user.id
+                "data":user._id
             })
         }else{
         console.log(nameOrEmail,password);

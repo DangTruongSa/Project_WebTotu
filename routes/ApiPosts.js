@@ -45,8 +45,8 @@ router.get("/list-category", async (req, res)=>{
 
 router.post("/create-post/:userId", async (req, res) => {
     try {
-        var {title} = req.body;
-        const categoryId = '66acc66e27fc1c58e21db2cd';
+        var {title,categoryId} = req.body;
+        // const categoryId = '66acc66e27fc1c58e21db2cd';
         const userId = req.params.userId;
         var newPost ={
             categoryId,
