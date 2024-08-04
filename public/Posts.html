@@ -50,11 +50,12 @@
     <script>
         const userRole = localStorage.getItem('role');
         console.log(userRole);
-
+        
         if(userRole === '3'){
            
         }else{
             document.getElementById('menuHide').style.display = "none";
+            window.location.href = "Index.html"
         }
 
         if(userRole){
