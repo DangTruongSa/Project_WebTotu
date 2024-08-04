@@ -198,7 +198,9 @@ router.post("/login", async (req, res) => {
             res.json({
                 "status":111,
                 "messenger":"Chúc mừng đăng nhập thành công (♥_♥)",
-                "data":user._id
+                "userId":user._id,
+                "userRole":user.role
+
             })
         }else{
         console.log(nameOrEmail,password);

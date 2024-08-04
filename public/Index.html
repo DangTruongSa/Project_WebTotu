@@ -29,14 +29,38 @@
     <div class="menu">
         <nav class="nav">
             <ul class="menu" id="categoryMenu">
-
+                
+            </ul>
+            <ul class="menu" id="menuHide">
+                <li><a href="PostContent.html" > Viết nội dung bài viết </li>
+                <li><a href="Posts.html" > Viết tiêu đề bài viết  </li>
+                <li><a href="PostsCategory.html" > Thêm loại ngôn ngữ </li>
+                
+            </ul>
+            <ul class="menu" id="menuLR" >
+                <li><a href="Login.html" > Đăng nhập </li>
+                <li><a href="Register.html" > Đăng Ký </li>
+                
             </ul>
         </nav>
 
     </div>
 
     <script>
-        const apiUrl = 'http://localhost:3005/ApiPosts/list-category';
+        const userRole = localStorage.getItem('role');
+        console.log(userRole);
+
+        if(userRole === '3'){
+           
+        }else{
+            document.getElementById('menuHide').style.display = "none";
+        }
+
+        if(userRole){
+            document.getElementById('menuLR').style.display = "none";
+        }
+
+        const apiUrl = '/ApiPosts/list-category';
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
@@ -199,9 +223,5 @@
     </div>
 
 
-
-
 </body>
-
-
 </html>
