@@ -42,23 +42,63 @@
     </div>
 
     <div class="ContentPost">
-        <div class="PostMenu" name="PostMenu" >
+        <div class="PostMenu" name="PostMenu">
             <ul id="PostMenu">
-                
+                <li><a href="postid">Giới thiệu về HTML</a></li>
+                <li><a href="postid2">Trình biên tập HTML</a></li>
                 <!-- add danh sach o day -->
             </ul>
         </div>
-        
+
         <div class="PostContent" name="PostContent" id="PostContent">
 
             <div class="post" name="postid" id="postid">
                 <h1 class="titlePost" id="postTitle" name="titleid">Giới thiệu HTML</h1>
 
                 <div id="contentMenu">
-                    
+                    <h4> Giới thiệu HTML</h4><br>
+                    <p>HTML là ngôn ngữ dùng để mô tả một trang web.</p><br>
+                    <p>HTML là viết tắt từ Hyper Text Markup Language.</p><br>
+                    <p>HTML không phải là ngôn ngữ lập trình, HTML là ngôn ngữ đánh dấu (Markup Language),
+                        ngôn ngữ đánh dấu là một nhóm các thẻ đánh dấu (các tag), HTML sử dụng các thẻ này dể mô tả
+                        trang web.
+                    </p>
+                    <br>
+                    <h4> Lịch sử phát triển HTML</h4> <br>
+                    <p>HTML được tạo ra bởi Tim Berners-Lee, một nhà vật lý học của trung tâm nghiên cứu CERN ở Thụy Sĩ.
+                        Hiện
+                        nay,
+                        HTML đã trở thành một chuẩn Internet được tổ chức W3C (World Wide Web Consortium) vận hành và
+                        phát
+                        triển.
+                        Bạn có thể tự tìm kiếm tình trạng mới nhất của HTML tại bất kỳ thời điểm nào trên Website của
+                        W3C. </p>
+                    <br>
+                    <p> Phiên bản đầu tiên của HTML xuất hiện năm 1991, gồm 18 tag HTML. Phiên bản HTML 4.01 được xuất
+                        bản năm
+                        1999.
+                        Sau đó, các nhà phát triển đã thay thế HTML bằng XHTML vào năm 2000.</p><br>
+                    <h4> HTML hoạt động như thế nào</h4><br>
+                    <p>HTML documents là files kết thúc với đuôi .html hay .htm.
+                        Bạn có thể xem chúng bằng cách sử dụng bất kỳ trình duyệt web nào (như Google Chrome, Safari,
+                        hay
+                        Mozilla Firefox).
+                        Trình duyệt đọc các files HTML này và xuất bản nội dung lên internet sao cho người đọc có thể
+                        xem được
+                        nó.</p>
+                    <br>
+                    <p>Thông thường, trung bình một web chứa nhiều trang web HTML,
+                        ví dụ như: trang chủ, trang about, trang liên hệ, tất cả đều cần các trang HTML riêng.</p>
+                    <br>
+                    <p>Mỗi trang HTML chứa một bộ các tag (cũng được gọi là elements),
+                        bạn có thể xem như là việc xây dựng từng khối của một trang web.
+                        Nó tạo thành cấu trúc cây thư mục bao gồm section, paragraph, heading, và những khối nội dung
+                        khác.</p>
                 </div>
-                
+
             </div>
+
+
 
 
             <script>
@@ -82,24 +122,24 @@
                                     a.textContent = post.title;
 
                                     a.addEventListener('click', (event) => {
-                                        event.preventDefault(); 
+                                        event.preventDefault();
 
                                         const title = document.getElementById('postTitle');
                                         title.textContent = post.title;
-                                        
+
                                         const PostId = post._id;
 
                                         const apiUrlContent = `http://localhost:3005/ApiPosts/list-post-content/`;
 
-                                        fetch(apiUrlContent+PostId+`?_=${new Date().getTime()}`)
+                                        fetch(apiUrlContent + PostId + `?_=${new Date().getTime()}`)
                                             .then(response => response.json())
                                             .then(contentData => {
 
                                                 if (contentData.status === 200) {
-                                                    
+
                                                     const contentPosst = contentData.data;
                                                     const ContentElement = document.getElementById('contentMenu');
-                                                   
+
                                                     if (ContentElement) {
                                                         while (ContentElement.firstChild) {
                                                             ContentElement.removeChild(ContentElement.firstChild);
