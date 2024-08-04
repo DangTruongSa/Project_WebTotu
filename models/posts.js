@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 const postsSchema = new Schema({
-    categoryId: {type: Array},
-    postId:{type:ObjectId},
+    categoryId: {type: ObjectId, ref: 'category' },
+    postId:{type: ObjectId},
     userId:{type: ObjectId, ref:'users'},
-    title:{type:String}
+    title:{type: String}
 });
 
 

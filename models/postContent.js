@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 const postContentSchema = new Schema({
-    postId:{type: ObjectId, ref:'posts'},
-    title:{type:String },
-    content:{type: String },
-    image:{type: String, default: "111"}
+    postId: { type: ObjectId, ref: 'posts' },
+    title: { type: String },
+    content: { type: String },
+    image: { type: String, default: "111" }
 
 });
 

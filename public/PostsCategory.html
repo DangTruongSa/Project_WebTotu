@@ -50,50 +50,46 @@
     </div>
 
     <main>
-        <div class="Container">
+        <form class="Container" id="Container">
             <h1>Thêm ngôn ngữ mới </h1>
             <div class="Content">
-                <input type="text" id="title" name="title" placeholder="Nhập ngôn ngữ mới"> 
+                <input type="text" id="name" name="name" placeholder="Nhập ngôn ngữ mới"> 
             </div>
-            
+            <div class="Content">
+                <textarea name="description" id="description" class="textarea" placeholder="Nhập miêu tả "></textarea>
+            </div>
             
             <br>
-            <div class="buttonPost" >
-                <button onclick="addContent()">
-                    Thêm ngôn ngữ mới
-                </button><br>
-            </div>
-            
-            <script>
-                function addContent() {
-                    var contentDivs = document.querySelectorAll('.Content','.Image');
-                    var lastContentDiv = contentDivs[contentDivs.length - 1];
+            <!-- để input nằm ngoài thẻ form mới chạy được -->
+            <input type="submit" value="Them ngon ngu ">
 
-                    var newDiv = document.createElement('div'); 
-                    newDiv.classList.add('Content'); 
-                    
-                    var newTextarea = document.createElement('textarea');
-                    newTextarea.classList.add('textarea');
-                    newTextarea.setAttribute('id', 'content');
-                    newTextarea.setAttribute('name', 'content');
-                    newTextarea.setAttribute('placeholder', 'Nhập ngôn ngữ mới');
-
-                    newDiv.appendChild(newTextarea); 
-                    lastContentDiv.parentNode.insertBefore(newDiv, lastContentDiv.nextSibling);
-                }
-
-                
-
-            </script>
-
-            <div class="buttonPost" >
-                <button>
-                    Lên Bài
-                </button><br>
-            </div>
+            <div id="message"> thong baos tai day</div>
             
             
-        </div>
+        </form>
+        <script>
+
+            document.getElementById('Container').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const description = document.getElementById('description').value;
+
+            const response = await fetch('/ApiPosts/create-category', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({name, description})
+
+            });
+
+            const result = await response.json();
+            document.getElementById('message').innerText = result.messenger;
+            
+        });
+
+        </script>
     </main>
 
 

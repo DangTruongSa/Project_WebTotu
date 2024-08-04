@@ -4,12 +4,12 @@ const PostModel = require('../models/posts');
 const PostContentModel = require('../models/postContent');
 const CategotyModel = require('../models/category');
 
+
 // them thu vien
 // chi danh admin
 router.post("/create-category", async (req, res) => {
     try {
         var {name,description} = req.body;
-        console.log("looi")
         var newCategory ={
             name,
             description
@@ -18,7 +18,7 @@ router.post("/create-category", async (req, res) => {
         var data = await CategotyModel.create(newCategory);
         res.json({
             "status":200,
-            "messenger":"Chúc mừng thành công! (♥_♥)",
+            "messenger":"Chúc mừng theem loai  thành công! (♥_♥)",
             "data":data
         })
     } catch(error) {
@@ -45,10 +45,11 @@ router.get("/list-category", async (req, res)=>{
 
 router.post("/create-post/:userId", async (req, res) => {
     try {
-        var {title} = req.body;
-        
+        var {title,categoryId} = req.body;
+        // const categoryId = '66acc66e27fc1c58e21db2cd';
         const userId = req.params.userId;
         var newPost ={
+            categoryId,
             title,
             userId
         };
@@ -66,7 +67,7 @@ router.post("/create-post/:userId", async (req, res) => {
 
 // nội dung bài đăng // còn phần ảnh để xử lý sau
 
-router.post("/create-post/:postId", async (req, res) => {
+router.post("/create-post-content/:postId", async (req, res) => {
     try {
         var {title,content} = req.body;
         
@@ -87,6 +88,39 @@ router.post("/create-post/:postId", async (req, res) => {
         console.log(error);
     }
 });
+
+// xem bài đăng 
+
+router.get("/get-list-posts", async (req, res)=>{
+    console.log("thong a=bao")
+    try {
+        const data = await PostModel.find();
+        res.json({
+            "status":200,
+            "messenger":"Chúc mừng thành công!",
+            "data": data
+        });
+    } catch (error) {
+        
+    }
+});
+
+router.get("/list-post-content/:postId", async (req, res)=>{
+    try {
+        const postId = req.params.postId;
+
+        const data = await PostContentModel.find({postId});
+        res.json({
+            "status":200,
+            "messenger":"Chúc mừng thành công!",
+            "data":data
+        })
+    } catch (error) {
+        
+    }
+});
+
+
 
 
 module.exports = router;
