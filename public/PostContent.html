@@ -51,82 +51,147 @@
 
     <main>
         <form class="Container" id="from-Post">
-            <h1>Thêm nội dung cho bài viết  </h1>
+            <h1>Thêm nội dung cho bài viết </h1>
+
             <div class="Content">
-                <select id="Posts">
-                </select>
+                <input type="text" id="titleI" name="titleI" placeholder="Nhập tiêu đề">
+            </div>
+            <div class="Content">
+                <textarea type="text" id="contentT" name="contentT" placeholder="Nhập nội dung"></textarea>
             </div>
 
-        <div class="Content">
-            <input type="text" id="titleI" name="titleI" placeholder="Nhập tiêu đề">
-        </div>
-        <div class="Content">
-            <textarea type="text" id="contentT" name="contentT" placeholder="Nhập nội dung"></textarea>
-        </div>
-        
-        <br>
-        
-        <div class="buttonPost">
-            <input type="submit"  value="Posst"><br>
-        </div>
+            <br>
+            <div class="Content">
+                <select id="Category">
+                </select>
+            </div>
+            <br>
 
-        <div id="message"> tgog b</div>
-    </form>
-    <script>
-        
-        const apiUrl = 'http://localhost:3005/ApiPosts/get-list-posts';
-        fetch(apiUrl)
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 200) {
-                    const Subtitle = data.data;
-                    const PostElement = document.getElementById('Posts');
-                    if (PostElement) {
-                        Subtitle.forEach(subtitle => {
-                            const option = document.createElement('option');
-                            option.id = "optionCategory";
-                            option.textContent = subtitle.title;
-                            option.value = subtitle._id;
-                            PostElement.appendChild(option);
-                        });
+            <div class="buttonPost">
+                <input type="submit" value="Post"><br>
+            </div>
+
+            <div id="message"> </div>
+        </form>
+        <script>
+
+            const apiUrl = 'http://webtotu.onrender.com/ApiPosts/get-list-posts';
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 200) {
+                        const Subtitle = data.data;
+                        const PostElement = document.getElementById('Posts');
+                        if (PostElement) {
+                            Subtitle.forEach(subtitle => {
+                                const option = document.createElement('option');
+                                option.id = "optionCategory";
+                                option.textContent = subtitle.title;
+                                option.value = subtitle._id;
+                                PostElement.appendChild(option);
+                            });
+                        }
+                    } else {
+                        console.error('Lỗi khi lấy danh sách:', data.messenger);
                     }
-                } else {
-                    console.error('Lỗi khi lấy danh sách:', data.messenger);
-                }
-            })
-            .catch(error => {
-                console.error('Lỗi kết nối API:', error);
+                })
+                .catch(error => {
+                    console.error('Lỗi kết nối API:', error);
+                });
+
+
+            // posst baif
+
+
+            document.getElementById('from-Post').addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const selectElement = document.getElementById('Posts');
+                const selectedOption = selectElement.options[selectElement.selectedIndex];
+                const PostId = selectedOption.getAttribute('value');
+                const title = document.getElementById('titleI').value;
+                const content = document.getElementById('contentT').value;
+
+
+                console.log(title);
+                const response = await fetch('/ApiPosts/create-post-content/' + PostId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ title, content })
+                });
+
+                const result = await response.json();
+                document.getElementById('message').innerText = result.messenger;
             });
 
 
-        // posst baif
+        </script>
 
-        
-        document.getElementById('from-Post').addEventListener('submit', async (event) => {
-            event.preventDefault();
+        <script>
+            const apiUrl1 = 'http://webtotu.onrender.com/ApiPosts/list-category';
 
-            const selectElement = document.getElementById('Posts');
-            const selectedOption = selectElement.options[selectElement.selectedIndex];
-            const PostId = selectedOption.getAttribute('value');
-            const title = document.getElementById('titleI').value;
-            const content = document.getElementById('contentT').value;
+            fetch(apiUrl1)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 200) {
+                        const categories = data.data;
+                        const menuElement = document.getElementById('Category');
+                        if (menuElement) {
+                            categories.forEach(category => {
+                                const option = document.createElement('option');
+                                option.id = "optionCategory";
+                                option.textContent = category.name;
+                                option.value = category._id;
+                                menuElement.appendChild(option);
+                            });
+                        }
+                    } else {
+                        console.error('Lỗi khi lấy danh sách:', data.messenger);
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi kết nối API:', error);
+                });
+
+            const userId = localStorage.getItem('id');
+            const UserName = document.getElementById('username');
+            // hien ten user
+            const apiUrlUser = 'http://localhost:3005/api/get-user/';
+            fetch(apiUrlUser + userId)
+                .then(response => response.json())
+                .then(user => {
+
+                    UserName.textContent = user.username;
+                });
+
+            // posst baif
 
 
-            console.log(title);
-            const response = await fetch('/ApiPosts/create-post-content/' + PostId, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({title,content})
+            document.getElementById('from-Post').addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const selectElement = document.getElementById('Category');
+                const selectedOption = selectElement.options[selectElement.selectedIndex];
+                const categoryId = selectedOption.getAttribute('value');
+                const title = document.getElementById('title').value;
+
+                console.log(title);
+                const response = await fetch('/ApiPosts/create-post/' + userId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ categoryId, title })
+                });
+
+                const result = await response.json();
+                document.getElementById('message').innerText = result.messenger;
             });
 
-            const result = await response.json();
-            document.getElementById('message').innerText = result.messenger;
-        });
 
-
-    </script>
+        </script>
     </main>
 
 

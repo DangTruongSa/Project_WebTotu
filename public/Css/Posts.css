@@ -1,73 +1,49 @@
-
-
-
-main {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.Container {
-    max-width: 60%;
-    min-width: 40%;
-    padding : 5%;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(228, 229, 229);
-}
-.Container > h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.Content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.Content > input[type="text"] {
-    width: 300px;
-    height: 60px;
-    padding: 5px;
+form.Container {
+    background-color: #e6f7e6;
+    border: 1px solid #b2d8b2;
     border-radius: 10px;
-    border-color: #48C018;
-    border-style: solid;
+    padding: 20px;
+    max-width: 600px;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.Content > .textarea {
-    width: 300px;
-    height: 100px;
-    padding: 5px;
-    border-radius: 10px ;
-    border-color: #48C018;
-    border-style: solid;
+form.Container h1 {
+    color: #2d862d;
+    font-family: Arial, sans-serif;
+    text-align: center;
 }
 
-.Image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+form.Container .Content input[type="text"],
+form.Container .Content textarea,
+form.Container .Content select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #b2d8b2;
+    border-radius: 5px;
+    background-color: #f2fbf2;
+    font-family: Arial, sans-serif;
 }
 
-.Image > input {
-    width: 300px;
-    height: 60px;
-    color: #48C018;
+form.Container .buttonPost input[type="submit"] {
+    background-color: #2d862d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
 }
 
-.buttonPost {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+form.Container .buttonPost input[type="submit"]:hover {
+    background-color: #246624;
 }
 
-.buttonPost > button {
-    justify-content: center;
-    align-items: center;
-    width: 150px;
-    height: 40px;
-    background-color: #48C018;
-    margin: 2%;
-    border-radius: 20px ;
-    border-color: #48C018;
-    border-style: solid;
+form.Container #message {
+    color: #2d862d;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+    text-align: center;
 }
