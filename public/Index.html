@@ -60,7 +60,7 @@
             document.getElementById('menuLR').style.display = "none";
         }
 
-        const apiUrl = 'http://localhost:3005/ApiPosts/list-category';
+        const apiUrl = '/ApiPosts/list-category';
         fetch(apiUrl)
             .then(response => response.json())
             .then(data => {
