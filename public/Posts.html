@@ -70,7 +70,7 @@
         </form>
         <script>
             
-            const apiUrl = 'http://localhost:3005/ApiPosts/list-category';
+            const apiUrl = 'https://webtotu.onrender.com/ApiPosts/list-category';
             fetch(apiUrl)
                 .then(response => response.json())
                 .then(data => {
@@ -97,7 +97,7 @@
             const userId = localStorage.getItem('id');
             const UserName = document.getElementById('username');
             // hien ten user
-            const apiUrlUser = 'http://localhost:3005/api/get-user/';
+            const apiUrlUser = 'https://webtotu.onrender.com/api/get-user/';
             fetch(apiUrlUser + userId )
                 .then(response => response.json())
                 .then(user => {

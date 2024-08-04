@@ -62,7 +62,7 @@
 
 
             <script>
-                const apiUrl = 'http://localhost:3005/ApiPosts/get-list-posts';
+                const apiUrl = 'https://webtotu.onrender.com/ApiPosts/get-list-posts';
 
                 fetch(apiUrl)
                     .then(response => response.json())
@@ -89,7 +89,7 @@
                                         
                                         const PostId = post._id;
 
-                                        const apiUrlContent = `http://localhost:3005/ApiPosts/list-post-content/`;
+                                        const apiUrlContent = `https://webtotu.onrender.com/ApiPosts/list-post-content/`;
 
                                         fetch(apiUrlContent+PostId+`?_=${new Date().getTime()}`)
                                             .then(response => response.json())
