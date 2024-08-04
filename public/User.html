@@ -67,7 +67,7 @@
     <script>
         // name là id khởi mất công thay thế
         const name = localStorage.getItem('id');
-        const apiUrl = 'http://localhost:3005/api/get-user/';
+        const apiUrl = 'http://webtotu.onrender.com/api/get-user/';
         console.log(name);
         const Avatar = document.getElementById('avatar');
         const UserName = document.getElementById('username');
@@ -95,7 +95,7 @@
 
             });
 
-            function clearLocalStorage() {
+        function clearLocalStorage() {
             localStorage.clear();
             alert("All local storage data has been cleared.");
             location.reload(); // Reload the page to apply changes
