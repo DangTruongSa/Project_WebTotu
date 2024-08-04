@@ -42,12 +42,17 @@ header {
 
 /*<!-- Inputfiel -->*/
 
+.search-icon{
+    width: 35px;
+    height: 35px;
+    margin-bottom: -6px;
+}
 
 .form__group {
     position: relative;
     padding: 15px 0 0;
     margin-top: 10px;
-    width: 145%;
+    width: 130%;
 }
 
 .form__field {
@@ -80,6 +85,7 @@ header {
     transition: 0.2s;
     font-size: 1rem;
     color: #9b9b9b;
+    pointer-events: none;
 }
 
 .form__field:focus {
@@ -185,7 +191,10 @@ header {
 .Content {
     margin: 5%;
     color: aliceblue;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .Content h1 {
@@ -207,7 +216,6 @@ header {
     border: 1px solid white;
     border-radius: 5px;
     background-color: #398F17;
-    margin-left: 30%;
 }
 
 .Content button:hover {
@@ -229,27 +237,35 @@ header {
     width: 400px;
     height: 400px;
     border-radius: 10px;
-    background-color: rgb(243, 243, 243);
+    background-color: #E7E9EB;
     font-size: 20px;
-
+    padding: 0 10px 5px 10px;
 }
 
 .Ex-header {
     height: 50px;
-    background: #9b9b9b;
+    background: #E7E9EB;
     padding-left: 20px;
     border-radius: 10px 10px 0 0;
     padding-top: 2px;
-    font-size: 40px;
+    font-size: 24px;
+    line-height: 50px;
+
 }
 
 .Ex-content {
+    min-height: 320px;
     padding-top: 20px;
     line-height: 10px;
-    padding-left: 20px;
+    font-size: 15px;
+    background-color: #fff;
+    padding: 15px 10px;
+    border-left: 4px solid #4CAF50;
 }
 
-
+.color-blue{
+    color: blue;
+}
 
 /* Register Page */
 
