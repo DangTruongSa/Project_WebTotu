@@ -81,8 +81,11 @@
             const result = await response.json();
             document.getElementById('message').innerText = result.messenger;
 
-            var idUser = result.data;
+            var idUser = result.userId;
+            var roleUser = result.userRole;
             localStorage.setItem('id', idUser);
+            localStorage.setItem('role', roleUser);
+            console.log(roleUser);
         });
 
 
@@ -94,6 +97,8 @@
                 document.getElementById('destination').innerText = data;
             }
         }
+
+        
     </script>
 
 </body>

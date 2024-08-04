@@ -61,6 +61,7 @@
         </div>
         <div id="status">
         </div>
+        <button onclick="clearLocalStorage()">Đang xuất</button>
     </div>
 
     <script>
@@ -94,7 +95,11 @@
 
             });
 
-
+            function clearLocalStorage() {
+            localStorage.clear();
+            alert("All local storage data has been cleared.");
+            location.reload(); // Reload the page to apply changes
+        }
 
     </script>
 
