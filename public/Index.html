@@ -60,8 +60,8 @@
             document.getElementById('menuLR').style.display = "none";
         }
 
-        const apiUrl = 'https://webtotu.onrender.com/ApiPosts/list-category';
-        fetch(apiUrl)
+        const apiUrlCategory = 'https://webtotu.onrender.com/ApiPosts/list-category';
+        fetch(apiUrlCategory)
             .then(response => response.json())
             .then(data => {
                 if (data.status === 200) {

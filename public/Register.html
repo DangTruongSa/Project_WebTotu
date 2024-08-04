@@ -28,18 +28,63 @@
     </header>
     <div class="menu">
         <nav class="nav">
-            <ul class="menu">
-                <li><a href="">HTML</a></li>
-                <li><a href="">CSS</a></li>
-                <li><a href="">JavaScript</a></li>
-                <li><a href="">C++</a></li>
-                <li><a href="">C#</a></li>
-                <li><a href="">Java</a></li>
-                <li><a href="">...</a></li>
+            <ul class="menu" id="categoryMenu">
+                
+            </ul>
+            <ul class="menu" id="menuHide">
+                <li><a href="PostContent.html" > Viết nội dung bài viết </li>
+                <li><a href="Posts.html" > Viết tiêu đề bài viết  </li>
+                <li><a href="PostsCategory.html" > Thêm loại ngôn ngữ </li>
+                
+            </ul>
+            <ul class="menu" id="menuLR" >
+                <li><a href="Login.html" > Đăng nhập </li>
+                <li><a href="Register.html" > Đăng Ký </li>
+                
             </ul>
         </nav>
 
     </div>
+
+    <script>
+        const userRole = localStorage.getItem('role');
+        console.log(userRole);
+
+        if(userRole === '3'){
+           
+        }else{
+            document.getElementById('menuHide').style.display = "none";
+        }
+
+        if(userRole){
+            document.getElementById('menuLR').style.display = "none";
+        }
+
+        const apiUrlCategory = 'https://webtotu.onrender.com/ApiPosts/list-category';
+        fetch(apiUrlCategory)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 200) {
+                    const categories = data.data;
+                    const menuElement = document.getElementById('categoryMenu');
+                    if (menuElement) {
+                        categories.forEach(category => {
+                            const li = document.createElement('li');
+                            const a = document.createElement('a');
+                            a.href = `#`;
+                            a.textContent = category.name;
+                            li.appendChild(a);
+                            menuElement.appendChild(li);
+                        });
+                    }
+                } else {
+                    console.error('Lỗi khi lấy danh sách:', data.messenger);
+                }
+            })
+            .catch(error => {
+                console.error('Lỗi kết nối API:', error);
+            });
+    </script>
     <!-- Đăng ký -->
     <div class="container register">
         <img src="img/logo.png" alt="" class="register-img">
