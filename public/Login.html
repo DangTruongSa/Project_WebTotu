@@ -28,18 +28,26 @@
     </header>
     <div class="menu">
         <nav class="nav">
-            <ul class="menu">
-                <li><a href="html.html">HTML</a></li>
-                <li><a href="">CSS</a></li>
-                <li><a href="">JavaScript</a></li>
-                <li><a href="">C++</a></li>
-                <li><a href="">C#</a></li>
-                <li><a href="">Java</a></li>
-                <li><a href="">...</a></li>
+            <ul class="menu" id="menuLR" >
+                <li><a href="Login.html" > Đăng nhập </a></li>
+                <li><a href="Register.html" > Đăng Ký </a></li>
+                
             </ul>
         </nav>
 
     </div>
+
+    <script>
+        const userRole = localStorage.getItem('role');
+        console.log(userRole);
+
+        if(userRole){
+            document.getElementById('menuLR').style.display = "none";
+            window.location.href = "Index.html"
+        }
+
+       
+    </script>
     <!-- Đăng nhập -->
     <div class="container register">
         <img src="img/logo.png" alt="" class="register-img">

@@ -13,7 +13,7 @@
 
 <body>
     <header>
-        <img src="img/logo.png" alt="" class="logo" alt="logo">
+        <a class="logo" href="Index.html"><img src="img/logo.png" alt="" alt="logo"></a>
         <nav>
             <ul class="nav">
                 <li>
@@ -50,7 +50,7 @@
     <script>
         const userRole = localStorage.getItem('role');
         console.log(userRole);
-
+        
         if(userRole === '3'){
            
         }else{
@@ -97,44 +97,85 @@
     </div>
 
     <main>
-        <form class="Container" id="Container">
-            <h1>Thêm ngôn ngữ mới </h1>
+        <form class="Container" id="from-Post">
+            <h1>Thêm bài viết </h1>
             <div class="Content">
-                <input type="text" id="name" name="name" placeholder="Nhập ngôn ngữ mới"> 
+                <input type="text" id="title" name="title" placeholder="Nhập tiêu đề">
             </div>
             <div class="Content">
-                <textarea name="description" id="description" class="textarea" placeholder="Nhập miêu tả "></textarea>
+                <select id="Category">
+                </select>
             </div>
-            
             <br>
-            <!-- để input nằm ngoài thẻ form mới chạy được -->
-            <input type="submit" value="Them ngon ngu ">
+            <div id="username">Ten cua nguoi dang </div>
+            
+            <div class="buttonPost">
+                <input type="submit"  value="Posst"><br>
+            </div>
 
-            <div id="message"> thong baos tai day</div>
-            
-            
+            <div id="message"> tgog b</div>
         </form>
         <script>
+            
+            const apiUrl = 'https://webtotu.onrender.com/ApiPosts/list-category';
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 200) {
+                        const categories = data.data;
+                        const menuElement = document.getElementById('Category');
+                        if (menuElement) {
+                            categories.forEach(category => {
+                                const option = document.createElement('option');
+                                option.id = "optionCategory";
+                                option.textContent = category.name;
+                                option.value = category._id;
+                                menuElement.appendChild(option);
+                            });
+                        }
+                    } else {
+                        console.error('Lỗi khi lấy danh sách:', data.messenger);
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi kết nối API:', error);
+                });
 
-            document.getElementById('Container').addEventListener('submit', async (event) => {
-            event.preventDefault();
+            const userId = localStorage.getItem('id');
+            const UserName = document.getElementById('username');
+            // hien ten user
+            const apiUrlUser = 'https://webtotu.onrender.com/api/get-user/';
+            fetch(apiUrlUser + userId )
+                .then(response => response.json())
+                .then(user => {
+                    
+                    UserName.textContent = user.username;
+                });
 
-            const name = document.getElementById('name').value;
-            const description = document.getElementById('description').value;
+            // posst baif
 
-            const response = await fetch('/ApiPosts/create-category', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({name, description})
+            
+            document.getElementById('from-Post').addEventListener('submit', async (event) => {
+                event.preventDefault();
 
+                const selectElement = document.getElementById('Category');
+                const selectedOption = selectElement.options[selectElement.selectedIndex];
+                const categoryId = selectedOption.getAttribute('value');
+                const title = document.getElementById('title').value;
+
+                console.log(title);
+                const response = await fetch('/ApiPosts/create-post/' + userId, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({categoryId, title})
+                });
+
+                const result = await response.json();
+                document.getElementById('message').innerText = result.messenger;
             });
 
-            const result = await response.json();
-            document.getElementById('message').innerText = result.messenger;
-            
-        });
 
         </script>
     </main>
